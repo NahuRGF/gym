@@ -28,9 +28,14 @@ Write-Host '3/4 confirmando en la rama gh-pages...'
 Push-Location $staging
 try {
     git init -q -b gh-pages
+    # El staging es un repo nuevo, asi que no hereda la identidad del proyecto.
+    $identidad = @('-c', "user.name=$((git -C $raiz config user.name))", '-c', "user.email=$((git -C $raiz config user.email))")
+    # Sin esto git normaliza a CRLF y sw.js/manifest.webmanifest suben distintos
+    # a como los sirvio el build.
+    Set-Content -LiteralPath (Join-Path $staging '.gitattributes') -Value '* -text' -NoNewline
     git add -A
     $mensaje = "Deploy $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
-    git commit -q -m $mensaje 2>&1 | Out-String | Write-Host
+    git @identidad commit -q -m $mensaje
     $ultimo = git log --oneline -1
 } finally {
     Pop-Location

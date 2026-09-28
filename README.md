@@ -44,7 +44,13 @@ npm install
 npm run dev      # servidor de desarrollo
 npm run lint     # oxlint
 npm run build    # tsc + build de producción en dist/
+npm test         # smoke test contra un servidor local
+npm run test:prod # smoke test contra lo desplegado
 ```
+
+El smoke test (`scripts/test/smoke.py`) levanta la app, verifica render,
+navegación, IndexedDB, manifest, iconos, service worker y que abra sin conexión.
+Requiere `pip install playwright && playwright install chromium`.
 
 ### Decisiones que conviene conocer antes de tocar el código
 
@@ -63,12 +69,14 @@ npm run build    # tsc + build de producción en dist/
 
 ## Despliegue
 
-`main` dispara `.github/workflows/deploy.yml`, que compila y publica en GitHub
-Pages. Para probar cambios antes de subirlos:
+`npm run deploy` compila y publica `dist/` en la rama `gh-pages`, que es la que
+GitHub Pages sirve. Tarda 1-2 minutos en estar visible.
 
-```bash
-npm run build
-```
+Se despliega por rama y no con un workflow de Actions a propósito: el token de
+`gh` no tiene el scope `workflow`, y GitHub rechaza cualquier push que incluya un
+archivo bajo `.github/workflows/`. Si algún día se quiere desplegar automático con
+cada push, primero hay que re-autenticar con ese scope
+(`gh auth refresh -h github.com -s workflow`).
 
 ## Stack
 

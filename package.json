@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "test": "python scripts/test/smoke.py",
+    "test:prod": "python scripts/test/smoke.py https://nahurgf.github.io/gym/",
     "deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1"
   },
   "dependencies": {
