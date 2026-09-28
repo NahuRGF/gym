@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-marca: oklch(0.55 0.17 155);
+  --color-marca-fuerte: oklch(0.45 0.17 155);
+  --color-peligro: oklch(0.55 0.19 25);
+  --color-alerta: oklch(0.7 0.15 75);
+}
+
+@layer base {
+  :root {
+    /* Sin esto el rebote elastico de Safari desplaza la app entera. */
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-zinc-100 text-zinc-900 antialiased;
+    /* Evita el zoom automatico de Safari al enfocar un input con fuente chica. */
+    text-size-adjust: 100%;
+  }
+
+  /* Los controles nativos de iOS traen estilos propios que rompen el diseno.
+     font-size 16px es el umbral: por debajo, Safari hace zoom al enfocar. */
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* El tap en iOS tiene un delay de 300ms sin esto. */
+  a,
+  button,
+  [role='button'],
+  label,
+  summary {
+    touch-action: manipulation;
+  }
+}
+
+@layer utilities {
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Los targets de iOS por debajo de 44px se pulsan mal. */
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- viewport-fit=cover es obligatorio: sin esto no hay env(safe-area-inset-*)
+         y el notch y la barra de gestos se comen la interfaz. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Gestión de Gimnasio</title>
+    <meta name="description" content="Socios, cuotas, rutinas y seguimiento de entrenamiento." />
+
+    <!-- Instalar en la pantalla de inicio. apple-mobile-web-app-capable es lo que
+         Safari lee para quitar la barra del navegador; el manifest lo cubre en
+         otros navegadores. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Gym" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#109158" />
+    <meta name="color-scheme" content="light" />
+
+    <!-- Sin esto iOS convierte cualquier numero de telefono en un link que
+         dispara la app de llamadas en vez de mostrarlo como texto. -->
+    <meta name="format-detection" content="telephone=no" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
